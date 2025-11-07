@@ -1,16 +1,25 @@
-import './App.css';
-import Gallery from './components/Gallery';
-import StateHandling from './components/StateHandling';
+import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Login from './pages/Login'
 
 function App() {
   return (
-    <div className="container">
-      <h1>Welcome to React App</h1>
-      <h2 style={{ backgroundColor: 'cyan', color: 'white' }}>Student Profiles</h2>
-      <StateHandling/>
-      
+    <div>
+      {/* <h2>Welcome to ReactVite.</h2> */}
+
+       {/* {/<Gallery/> }
+       {/<StateHandling />/} */}
+       {/* <ImageManipulation/> */}
+
+       <BrowserRouter>
+       <Routes>
+        <Route path="/login" element={<Login/>}></Route>
+       </Routes>
+       </BrowserRouter>
+
+  
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
