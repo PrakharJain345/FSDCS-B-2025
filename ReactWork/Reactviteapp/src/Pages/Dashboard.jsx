@@ -1,22 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 function Dashboard() {
-  const [counter,setcounter]=useState(10);
-  const[pointer,setpointer]=useState(100);
-  useEffect(()=>{
-    console.log(pointer);
-    console.log(counter);
+  const [data, setdata] = useState([]);
+  useEffect(() => {
+    async function fetchdata() {
+      const serverresponse = await fetch("https://fakestoreapi.com/products");
+      const jsonresponse = await serverresponse.json();
+      console.log(jsonresponse);
+      setdata(jsonresponse);
+    }
+    fetchdata();
+  }, []);
 
-  },[counter,pointer])
-  
   return (
     <div>
-      <h2>counter Value = {counter}</h2>
-      <h2>pointer value = {pointer}</h2>
-      <button onClick={()=>setcounter(counter+10)}>counter</button>
-      <button onClick={()=>setpointer(pointer-10)}>pointer</button>
+      {data.length === 0 ? (
+        <h2>Data couldn't fetch </h2>
+      ) : (
+        <div>
+          {data.map((ele) => {
+            return (
+              <div key={ele.id} style={{  height:"300px" , width:"300px" }}>
+                <img src={ele.image} height={100} width={100} alt={ele.title} />
+                <h3>{ele.title}</h3>
+                <button>Add to Cart</button>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* {
+        JSON.stringify(data)
+      } */}
     </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;
